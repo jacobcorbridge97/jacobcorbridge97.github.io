@@ -8,7 +8,7 @@ author:
     url: https://example.com/norajones
     affiliation: Spacely Sprockets
     affiliation_url: https://example.com/spacelysprokets
-date: 04-28-2021
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   distill::distill_article:
     self_contained: false
