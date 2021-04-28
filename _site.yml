@@ -1,0 +1,13 @@
+name: "jacobcorbridge97.github.io"
+title: "Jacob Corbridge Senior Blog"
+description: |
+  Jacob Corbridge Senior Blog
+output_dir: "docs"
+base_url: https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article

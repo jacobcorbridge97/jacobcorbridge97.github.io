@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/2021-04-28-first-post/",
+    "title": "First Post",
+    "description": "Practice Post",
+    "author": [
+      {
+        "name": "Jacob Corbridge",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2021-04-28",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-04-28T13:47:10-06:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to Jacob Corbridge Senior Blog",
+    "description": "Welcome to our new blog, Jacob Corbridge Senior Blog. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2021-04-28",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-04-28T12:07:51-06:00",
+    "input_file": {}
+  }
+]
