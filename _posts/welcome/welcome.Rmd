@@ -1,13 +1,12 @@
 ---
-title: "Welcome to Jacob Corbridge Senior Blog"
+title: "Welcome to Jacob Corbridge's Senior Blog"
 description: |
-  Welcome to our new blog, Jacob Corbridge Senior Blog. We hope you enjoy 
-  reading what we have to say!
+  Kick back and stay a while. 
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Jacob Corbridge
+    url: https://www.linkedin.com/in/jacobcorbridge/
+    affiliation: Stotz Equipment
+    affiliation_url: https://www.stotzequipment.com/precision-ag/
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   distill::distill_article:
@@ -23,4 +22,10 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
+Welcome again to my Senior Project Blog. I am excited to go on this Data Science Journey, and to bring you along with me! There are limitless possibilities, but sadly there can only be one project. With that in mind, allow me to lay out my future posts. 
 
+1. See a Need, Fill a Need: Follow me through my thought process behind selecting our problem of choice, and what we will be up against in coming weeks.
+
+2. Query Her? I Hardly Know Her: Observe what it takes to connect to a PostreSQL database, and create queries based solely on visual tableau cues. 
+
+3. Bring it Together: Conclusion

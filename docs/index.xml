@@ -7,7 +7,15 @@
     <description>Jacob Corbridge Senior Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 28 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Second Post</title>
+      <dc:creator>Jacob Corbridge</dc:creator>
+      <link>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/2021-05-12-second-post</link>
+      <description>Finding a problem to solve, without re-inventing the wheel.</description>
+      <guid>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/2021-05-12-second-post</guid>
+      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>First Post</title>
       <dc:creator>Jacob Corbridge</dc:creator>

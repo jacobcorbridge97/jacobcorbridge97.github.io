@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-05-12-second-post/",
+    "title": "Second Post",
+    "description": "Finding a problem to solve, without re-inventing the wheel.",
+    "author": [
+      {
+        "name": "Jacob Corbridge",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2021-05-12",
+    "categories": [],
+    "contents": "\r\nThere are a lot of possible projects that one could pursue for a Senior Project. There is the research route, that includes exploring new tools for data handling and visualization. There is also the business route which is a more direct approach to a project. In this case, a company with real-world problem needs to find a solution that will save the company both time and money in the future.\r\nThe type of project that I have chosen to pursue will be the latter. I currently work for a John Deere Distributor called Stotz Equipment. There is a lot of background to understand about John Deere, Stotz, and data in agriculture in order to see the need that I am trying to fill.\r\nAgricultural companies such as John Deere are slightly behind the times in terms of data practices. This is not to say that they are in the stone age, very much the opposite. The problem is that John Deere has had to learn extremely quickly, and at times things got a little messy. This has had an effect on distributors such as Stotz who are trying to implement their own data practice using data from John Deere for their own purposes.\r\nAs the situation currently stands, John Deere provides the overwhelming majority of Data that Stotz uses. However, accessing this data can tend to be a little more complicated than it should be. This leads us to the current situation at hand, a situation that I hope to at least be able to somewhat remedy for future projects.\r\nStotz Equipment uses Tableau for almost all of it’s reporting needs. The data connections and joins are all there, and it generally works well. However, there are always complaints with this and that about Tableau. It is an imperfect tool, but the best we have right now.\r\nWith this in mind, I am proposing a long term data connection solution. All of these connections, done in tableau, are useless anywhere else. If I can take those relationships and replicate them using SQL, we will be able to easily pivot to whatever new tool we choose to switch to in the future and replicate all reports with ease.\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-05-26T11:45:01-06:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-04-28-first-post/",
     "title": "First Post",
     "description": "Practice Post",
@@ -13,7 +30,7 @@
     "categories": [],
     "contents": "\r\n\r\n\r\n\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-04-28T13:47:10-06:00",
+    "last_modified": "2021-05-26T11:45:23-06:00",
     "input_file": {}
   },
   {
