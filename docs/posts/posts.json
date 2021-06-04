@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/welcome/",
+    "title": "Welcome to Jacob Corbridge's Senior Blog",
+    "description": "Kick back and stay a while.",
+    "author": [
+      {
+        "name": "Jacob Corbridge",
+        "url": "https://www.linkedin.com/in/jacobcorbridge/"
+      }
+    ],
+    "date": "2021-06-04",
+    "categories": [],
+    "contents": "\r\nWelcome again to my Senior Project Blog. I am excited to go on this Data Science Journey, and to bring you along with me! There are limitless possibilities, but sadly there can only be one project. As I have learned from previous projects, sometimes the process itself can be the result. In data science, we often run into barriers, obstacles, or dead ends. This doesn’t kill the project, but rather changes it’s direction or focus. We’ll be seeing plenty of that over the next 14 weeks.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-06-04T16:09:40-06:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-05-12-second-post/",
     "title": "Second Post",
     "description": "Finding a problem to solve, without re-inventing the wheel.",
@@ -31,23 +48,6 @@
     "contents": "\r\n\r\n\r\n\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
     "preview": {},
     "last_modified": "2021-05-26T11:45:23-06:00",
-    "input_file": {}
-  },
-  {
-    "path": "posts/welcome/",
-    "title": "Welcome to Jacob Corbridge Senior Blog",
-    "description": "Welcome to our new blog, Jacob Corbridge Senior Blog. We hope you enjoy \nreading what we have to say!",
-    "author": [
-      {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2021-04-28",
-    "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n",
-    "preview": {},
-    "last_modified": "2021-04-28T12:07:51-06:00",
     "input_file": {}
   }
 ]

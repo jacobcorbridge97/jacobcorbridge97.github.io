@@ -7,7 +7,15 @@
     <description>Jacob Corbridge Senior Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 12 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Welcome to Jacob Corbridge's Senior Blog</title>
+      <dc:creator>Jacob Corbridge</dc:creator>
+      <link>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/welcome</link>
+      <description>Kick back and stay a while.</description>
+      <guid>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/welcome</guid>
+      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Second Post</title>
       <dc:creator>Jacob Corbridge</dc:creator>
@@ -22,15 +30,6 @@
       <link>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/2021-04-28-first-post</link>
       <description>Practice Post</description>
       <guid>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/2021-04-28-first-post</guid>
-      <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Welcome to Jacob Corbridge Senior Blog</title>
-      <dc:creator>Nora Jones</dc:creator>
-      <link>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/welcome</link>
-      <description>Welcome to our new blog, Jacob Corbridge Senior Blog. We hope you enjoy 
-reading what we have to say!</description>
-      <guid>https://github.com/jacobcorbridge97/jacobcorbridge97.github.io.git/posts/welcome</guid>
       <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>

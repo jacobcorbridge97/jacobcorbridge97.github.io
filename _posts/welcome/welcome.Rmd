@@ -22,10 +22,4 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-Welcome again to my Senior Project Blog. I am excited to go on this Data Science Journey, and to bring you along with me! There are limitless possibilities, but sadly there can only be one project. With that in mind, allow me to lay out my future posts. 
-
-1. See a Need, Fill a Need: Follow me through my thought process behind selecting our problem of choice, and what we will be up against in coming weeks.
-
-2. Query Her? I Hardly Know Her: Observe what it takes to connect to a PostreSQL database, and create queries based solely on visual tableau cues. 
-
-3. Bring it Together: Conclusion
+Welcome again to my Senior Project Blog. I am excited to go on this Data Science Journey, and to bring you along with me! There are limitless possibilities, but sadly there can only be one project. As I have learned from previous projects, sometimes the process itself can be the result. In data science, we often run into barriers, obstacles, or dead ends. This doesn't kill the project, but rather changes it's direction or focus. We'll be seeing plenty of that over the next 14 weeks. 
