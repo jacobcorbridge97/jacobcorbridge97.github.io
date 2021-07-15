@@ -1,11 +1,11 @@
 ---
-title: "Post #4: Shapes and Colors"
+title: "Post #5: Shapes and Colors"
 description: |
   A short description of the post.
 author:
   - name: Jacob Corbridge
     url: https://www.linkedin.com/in/jacobcorbridge/
-date: 07-13-2021
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   distill::distill_article:
     self_contained: false
@@ -14,6 +14,7 @@ output:
 ```{r include=FALSE}
 library(png)
 library(grid)
+
 ```
 
 Now that we have our Data downloaded as a zip file, we'll need to dig into it to access what we want. 

@@ -1,11 +1,11 @@
 ---
-title: "Post #2: Open Sesame"
+title: "Post #3: Open Sesame"
 description: |
   Maneuvering through Oauth2 for API access
 author:
   - name: Jacob Corbridge
     url: https://www.linkedin.com/in/jacobcorbridge/
-date: 05-12-2021
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   distill::distill_article:
     self_contained: false
