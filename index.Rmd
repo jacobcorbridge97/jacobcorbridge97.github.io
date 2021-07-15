@@ -1,5 +1,11 @@
 ---
 title: "Jacob Corbridge Senior Blog"
+description: |
+  Data Science Student
+  Brigham Young University - Idaho
+  Stotz Equipment Data Analyst
+  Cell: (928) 529-7036
+  e-mail: jacobcorbridge97@gmail.com
 site: distill::distill_website
 listing: posts
 ---

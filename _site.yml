@@ -10,4 +10,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-output: distill::distill_article
+output:
+  distill::distill_article:
+    css:styles.css
+

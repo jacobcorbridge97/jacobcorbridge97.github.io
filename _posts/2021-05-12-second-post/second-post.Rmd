@@ -1,38 +1,246 @@
 ---
-title: "Second Post"
-description: 
-  Finding a problem to solve, without re-inventing the wheel.
+title: "Post #2: Open Sesame"
+description: |
+  Maneuvering through Oauth2 for API access
 author:
   - name: Jacob Corbridge
-    url: https://example.com/norajones
+    url: https://www.linkedin.com/in/jacobcorbridge/
 date: 05-12-2021
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r include=FALSE}
+library(png)
+library(grid)
 ```
 
-There are a lot of possible projects that one could pursue for a Senior Project. There is the research route, that includes exploring new tools for data handling and visualization. There is also the business route which is a more direct approach to a project. In this case, a company with real-world problem needs to find a solution that will save the company both time and money in the future. 
+```{r, echo=FALSE}
+library(reticulate)
+library(ggplot2)
 
-The type of project that I have chosen to pursue will be the latter. I currently work for a John Deere Distributor called Stotz Equipment. There is a lot of background to understand about John Deere, Stotz, and data in agriculture in order to see the need that I am trying to fill.
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  cache = FALSE,
+  engine.path = 'C:\\Users\\Jacob Corbridge\\AppData\\Local\\Programs\\Python\\Python39',
+  python.reticulate = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
 
-Agricultural companies such as John Deere are slightly behind the times in terms of data practices. This is not to say that they are in the stone age, very much the opposite. The problem is that John Deere has had to learn extremely quickly, and at times things got a little messy. This has had an effect on distributors such as Stotz who are trying to implement their own data practice using data from John Deere for their own purposes. 
-
-As the situation currently stands, John Deere provides the overwhelming majority of Data that Stotz uses. However, accessing this data can tend to be a little more complicated than it should be. This leads us to the current situation at hand, a situation that I hope to at least be able to somewhat remedy for future projects. 
-
-Stotz Equipment uses Tableau for almost all of it's reporting needs. The data connections and joins are all there, and it generally works well. However, there are always complaints with this and that about Tableau. It is an imperfect tool, but the best we have right now. 
-
-With this in mind, I am proposing a long term data connection solution. All of these connections, done in tableau, are useless anywhere else. If I can take those relationships and replicate them using SQL, we will be able to easily pivot to whatever new tool we choose to switch to in the future and replicate all reports with ease. 
+requests <- import('requests')
+json <- import('json')
+numpy <- import('numpy')
+urllib3 <- import('urllib3')
 
 
+```
+
+```{python, echo=FALSE}
+import pandas as pd
+import requests
+import json
+import numpy as np
+import urllib3
+```
 
 
-Distill is a publication format for scientific and technical writing, native to the web.
+Getting Authorized seems to be the most complicated and annoying part of the data access process. Authorization requires seveal codes and ID's, and access only lasts for 12 hours before the process needs to be repeated. If this process is ever to be automated, those issues will certainly need to be addressed. Lucky for us, that is for another time. 
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+To begin, we need to import libraries and declare client info. 
+
+```python
+from requests_oauthlib import OAuth2Sessions
+import requests
+import pandas as pd
+```
+
+```python
+CLIENT_ID = 'place_client_id_here'
+CLIENT_SECRET = 'place_client_secret_here'
+CLIENT_REDIRECT_URI = 'place_client_redirect_uri_here'
+```
+
+Once we've done that. we will need to simply run some code provided. We will need the Token Grant URL and the Authorization URL to get and authorization code and access token. This chunk also displays our available scopes, or what level of data access we have. 
+
+```python
+WELL_KNOWN_URL = 'https://signin.johndeere.com/oauth2/aus78tnlaysMraFhC1t7/.well-known/oauth-authorization-server'
+
+# Query the ./well-known OAuth URL and parse out the authorization URL, the token grant URL, and the available scopes
+well_known_response = requests.get(WELL_KNOWN_URL)
+well_known_info = json.loads(well_known_response.text)
+
+AUTHORIZATION_URL = well_known_info['authorization_endpoint']
+TOKEN_GRANT_URL = well_known_info['token_endpoint']
+AVAILABLE_SCOPES = str(' ').join(well_known_info['scopes_supported'])
+
+print('Well Known Authorization URL - ' + AUTHORIZATION_URL)
+print('Well Known Token Grant URL - ' + TOKEN_GRANT_URL)
+print('Available Scopes - ' + AVAILABLE_SCOPES)
+```
+
+Next we request an Authorization Code, and a link to Develop with Deere is provided.
+
+```python
+SCOPES_TO_REQUEST = {'offline_access', 'ag1', 'eq1', 'files', 'ag2', 'org1'}
+STATE = "Some Unique Identifier"
+oauth2_session = OAuth2Session(CLIENT_ID,  redirect_uri=CLIENT_REDIRECT_URI, scope=SCOPES_TO_REQUEST)
+
+authorization_request, state = oauth2_session.authorization_url(AUTHORIZATION_URL, STATE)
+print("Click on the following link to present the user with sign in form where they authenticate and approve access to your application.")
+print(authorization_request) 
+```
+
+Here we'll copy the code provided within the URL of the website
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/authorization_url.png')
+grid.raster(img)
+```
+
+And paste it here.
+
+```python
+### Update the authorization code here
+AUTHORIZATION_CODE = 'place_authorization_code_here'
+
+# Leave the line below as-is. This is to make sure that you have update the AUTHORIZATION_CODE
+assert(AUTHORIZATION_CODE != 'place_authorization_code_here'), 'The AUTHORIZATION_CODE in this cell must be replaced by the authorization_code that you recieved'
+
+### Now that we have an authorization code, let's fetch an access and refresh token
+token_response = oauth2_session.fetch_token(TOKEN_GRANT_URL, code=AUTHORIZATION_CODE, client_secret=CLIENT_SECRET)
+access_token = token_response['access_token']
+refresh_token = token_response['refresh_token']
+
+# Also take note that the access token expiration time is returned.  When the access token expires, 
+# you will want to use the refresh token to request a new access token (described later in this notebook)
+access_token_expiration = token_response['expires_in']
+
+print("Access Token: " + access_token)
+print("Refresh Token: " + refresh_token)
+print("Hours Token Is Valid: " + str(int(access_token_expiration/60/60)))
+```
+
+We now have our access token, we'll need that later when we attempt to make a call.
+
+We are now authenticated and are free to invoke the API however we want. Thank goodness that is over. 
+The code below will now connect to the sandbox API.
+
+
+```python
+### Create Connections Link
+URL = 'https://connections.deere.com/connections/' + CLIENT_ID + '&redirect_uri=' + CLIENT_REDIRECT_URI
+
+print(URL)
+```
+```python
+MYJOHNDEERE_V3_JSON_HEADERS = { 'Accept': 'application/vnd.deere.axiom.v3+json',
+                                'Content-Type': 'application/vnd.deere.axiom.v3+json'}
+
+# If your app happens to be already approved for production, then use the partnerapi.deere.com, otherwise stick with sandboxapi.deere.com
+API_CATALOG_URI = 'https://sandboxapi.deere.com/platform/'
+#API_CATALOG_URI = 'https://partnerapi.deere.com/platform/'
+
+api_catalog_response = oauth2_session.get(API_CATALOG_URI, headers=MYJOHNDEERE_V3_JSON_HEADERS)   
+# Test status code
+api_catalog_response.status_code
+# Test json response
+api_catalog_response.json()
+
+```
+
+200 is a successful status response, and our response.json() code will create a json output.
+Before we move forward, we will need to do some housekeeping. The json code that is produced from this code is not quite what we want. There is a slight difference in output that we'll want to address.The code below will clean up our previous output.
+
+```python
+### Clean Json Output with API Catalog
+
+links_array_from_api_catalog_response = api_catalog_response.json()['links']
+links_array_from_api_catalog_response
+```
+Now we want to do the same with our organizations, not just the API catalog.
+
+```python
+### Make the org link for Org Response
+
+organizations_link = None
+
+for link_object in links_array_from_api_catalog_response:
+  if(link_object['rel'] == 'organizations'):
+    organizations_link = link_object['uri']
+    break;
+    
+organizations_link
+```
+
+```python
+### Org Response OAuth2 (messy output) 
+
+organizations_response = oauth2_session.get(organizations_link, headers = MYJOHNDEERE_V3_JSON_HEADERS)
+organizations_response.json()
+```
+
+```python
+### Clean Json Output with Org Response
+
+links_array_from_api_org_response = organizations_response.json()['values']
+links_array_from_api_org_response
+```
+If you want to do a deep dive on the purpose of this code, further exploration can be done here:
+
+https://colab.research.google.com/github/JohnDeere/DevelopWithDeereNotebooks/blob/master/Onboarding/myjohndeere-api-onboarding.ipynb#scrollTo=sNKiFKDHWAwZ)
+
+```python
+### Connections Link
+
+connections_link = None
+
+for link_object in links_array_from_api_org_response:
+  for links in link_object['links']:
+    if(links['rel'] == 'connections'):
+      connections_link = links['uri']
+      break;
+    
+print(connections_link + "&redirect_uri=" + CLIENT_REDIRECT_URI)
+```
+
+Now we're going to want to take this output and put it into a dataframe so we can examine the data a little easier. Below is an example json output converted into table form. We'll need a few more packages as well.
+
+```python
+import numpy as np
+import urllib3
+from pandas.io.json import json_normalize
+```
+
+```python
+url_example = [{'@type': 'Link',
+  'rel': 'currentUser',
+  'uri': 'https://sandboxapi.deere.com/platform/users/@currentUser'},
+ {'@type': 'Link',
+  'rel': 'organizations',
+  'uri': 'https://sandboxapi.deere.com/platform/organizations'},
+ {'@type': 'Link',
+  'rel': 'agencies',
+  'uri': 'https://sandboxapi.deere.com/platform/agencies'}]
+#cars = pd.read_json(url_cars)
+json_normalize(url_example)
+```
+
+Beautiful.
+
+Next, we need to make an API call and download the file.
+
+
+
+
+
 
 

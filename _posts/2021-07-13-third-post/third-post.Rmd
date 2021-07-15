@@ -1,0 +1,132 @@
+---
+title: "Post #3: Make the call"
+description: |
+  A short description of the post.
+author:
+  - name: Jacob Corbridge
+    url: https://www.linkedin.com/in/jacobcorbridge/
+date: 07-13-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r include=FALSE}
+library(png)
+library(grid)
+```
+
+There are an array of API calls specifically for John Deere Data. So many, in fact that it is easy to get overwhelmed. I should know, it happened to me. API's shouldn't scare us so much at this point. We've made it through the gauntlet of authentication and json output, now we can have a bit of fun. The John Deere API catalog displays the wide variety of calls we have available to us. they can be found here:
+
+https://developer-portal.deere.com/#/myjohndeere/api-inventory
+
+For our test example, we'll be accessing FieldOperations with the intent of downloading a Shapefile. For additional information on Shapefiles, refer here:
+
+https://developer-portal.deere.com/#/myjohndeere/field-operations/shapefiles-overview
+
+Keep in mind that the most important files are the .dbf, .shp, and .shx. 
+
+However, we need to make our call first and obtain the data! We do that by using a GET request on the desired url using the following call:
+
+GET /organizations/{orgID}/fields/{fieldsID}/fieldOperations
+
+```python
+### Call to Field Operations to Obtain Operation ID
+import requests
+ 
+url = "https://sandboxapi.deere.com/platform/organizations/317388/fields/34d5eaed-1508-4dc3-87a3-6d489767d8e1/fieldOperations"
+
+payload={}
+headers = {
+  'Accept': 'application/vnd.deere.axiom.v3+json',
+  'Authorization': 'Bearer [Place Access Token Here, No Brackets]'
+}
+ 
+response = requests.request("GET", url, headers=headers, data=payload)
+data = response.json()['values']
+json_normalize(data)
+```
+Remember, when we include the access token it will be a large string of numbers, and it will be different every session. An example from a previous session looked like this:
+
+```python
+'Authorization': 'Bearer eyJraWQiOiJBRGE2aDV5MHZvZFpMbVdrQzlodTVvOWhWUGd5aTJjTjA2dFQ...
+```
+The string will actually come close to 1000 characters long, so do not be surprised with a very long access token string.
+
+At the end of the previous chunk we took advantage of our json_normalize() function and were able to get this pretty output:
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/clean_table.png')
+grid.raster(img)
+```
+
+Now that we have our raw data, we need to download all of this as a shapefile. This can be a complex process if you are importing a large amount of data. In our case we only have one field, but we need to be prepared in case that one day becomes necessary. In the previous chunk, we queried the Operations ID, a key piece. We will now use this ID as part of a new API call. 
+
+```python
+### Download Shapefile Step 1: Insert Operations ID Into URL
+import requests
+ 
+url = "https://sandboxapi.deere.com/platform/fieldOps/MzE3Mzg4XzViODQ1NjExY2QwOTk4MGQyMDdiYWVmZg"
+
+payload={}
+headers = {
+  'Accept': 'application/vnd.deere.axiom.v3+json',
+  'Authorization': 'Bearer [Insert Access Token Here and Remove Brackets']
+}
+ 
+response = requests.request("GET", url, headers=headers, data=payload)
+print(response.status_code)
+
+response1 = requests.request("GET", url, headers=headers, data=payload)
+print(response1)
+```
+
+Now is where things get a little choppy, but it is a simple process. When we are attempting to download data, it can take a long time especially with shapefiles. As a result of that, the call can take up to 30 minutes to run depending on the size of the call. There are 4 API codes that are possible when we try to get our download. The first is 202, which essentially means "Working on it". The next is a 307. This is a temporary redirect saying "We're ready to download" In my experience this shouldn't appear often, but our code accounts for it anyway. The final 2 are 406 and 200. 406 means a shapefile cannot be generated, most likely because a tillage operation was requested (tillage doesn't work for some reason). 200, as previously mentioned, is a successful request and downloading can begin.
+
+This is a small loop that will loop throught the download call until it is available to download. In my experience, there is little to no wait time. 
+Our API call for this case is 
+
+GET /fieldOps/{operationID}	- Asynchronous Shapefile Download
+
+```python
+### Step 2: Loop until 307 or 200 code
+
+### Step 3: Download URL as zip when done
+
+import urllib.request
+import time
+timeout = time.time() + 60*30
+sleeper = 5   
+
+while True:
+    url = "https://sandboxapi.deere.com/platform/fieldOps/MzE3Mzg4XzViODQ1NjExY2QwOTk4MGQyMDdiYWVmZg"
+
+    payload={}
+    headers = {
+    'Accept': 'application/vnd.deere.axiom.v3+json',
+    'Authorization': 'Bearer [Insert Access Token here and Remove Brackets]'
+    }
+ 
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    if response.status_code == 307 or 200:
+      urllib.request.urlretrieve(response.url, 'file.zip')
+      break
+
+    if time.time() > timeout: 
+      break
+
+    time.sleep(sleeper) 
+    sleeper = sleeper * 2
+```
+
+When the file downloads, it should appear
+
+
+Refer to the following page for any questions
+
+https://developer-portal.deere.com/#/myjohndeere/field-operations/field-operations?hash=download-shapefile
+
+
+
+

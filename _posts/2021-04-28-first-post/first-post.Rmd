@@ -1,26 +1,76 @@
 ---
-title: "First Post"
+title: "Post #1: Oh Deere"
 description: |
-  Practice Post
+  Creating a John Deere Aplication
 author:
   - name: Jacob Corbridge
-    url: https://example.com/norajones
-date: 04-28-2021
+    url: https://www.linkedin.com/in/jacobcorbridge/
+    affiliation: Stotz Equipment
+    affiliation_url: https://www.stotzequipment.com/precision-ag/
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   distill::distill_article:
     self_contained: false
 ---
-```{r}
 
+My name is Jacob Corbridge. I am a Data Analyst for a John Deere distributor called Stotz Equipment. I specialize in field maps and daily reporting. Field maps are easy to Generate using John Deere's Operation Center. They look nice, too. 
+
+```{r include=FALSE}
+library(png)
+library(grid)
 ```
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/field1.png')
+grid.raster(img)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+While this is both beautiful and useful, only John Deere customers and employees have access to such data, and it does not come in raw form. The John Deere Operations Center does almost all of the heavy lifting in these cases, but there is a downside. Without raw data readily available, it is impossible to run statistical analysis or machine learning models on the data. 
+
+I have thought a lot about this quandary and want to provide a solution so that Stotz Equipment and partners can have access to any raw data, at any time, for any reason. There are many paths that can be taken to provide such a result. Stotz already has a great pipeline setup for Tableau, but Raw data still cannot be accessed. I tried using the DBI package in R to connect to the database, but there simply wasn't enough documentation to understand how to move forward. 
+
+The next option to turn to is the John Deere API. It has some detailed documentation (albeit confusing at times) and provides access to a wide range of data so long as you make the correct API call. Thankfully, Deere provided an example Python script to walk new users through the API process.
+The colab can be found here 
+
+https://colab.research.google.com/github/JohnDeere/DevelopWithDeereNotebooks/blob/master/Onboarding/myjohndeere-api-onboarding.ipynb
+
+The Colab begins from the top with the creation of a John Deere account and an Organization with sample data within the John Deere Operations Center. As an employee, Neither of those steps are necessary. The first step for me was to create an application that can be used to connect to the data necessary within the scope of the project. In order to do so, I accessed Develop with Deere and followed the basic steps to create an application called BYUI - API Connect. We can even check out the Operations Center Connect page to make sure it's official.
+
+(https://developer-portal.deere.com/) 
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/application_front.png')
+grid.raster(img)
+```
+
+We can even check out the Operations Center Connect page to make sure it's official.
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/connections.png')
+grid.raster(img)
+```
+
+
+Some important security information is generated when an application is made. You are provided with an Application ID, a Client Secret (password), and you are also given the ability to state a redirect URI (a url that will provide an authentication password when called). For our purposes the link to Develop with Deere is all that is needed. 
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/security2.png')
+grid.raster(img)
+```
+
+
+An item to note. Our new Application will only be granted Sandbox access, which is fine for our purposes. Production access is reserved exclusively for API calls that will be made on a consistent basis.  
+
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/sandbox.png')
+grid.raster(img)
+```
+
+
+Now that we have an application made, it's time to get authenticated.
+
+
 
 

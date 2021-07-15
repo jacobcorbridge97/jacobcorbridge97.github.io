@@ -1,0 +1,85 @@
+---
+title: "Post #4: Shapes and Colors"
+description: |
+  A short description of the post.
+author:
+  - name: Jacob Corbridge
+    url: https://www.linkedin.com/in/jacobcorbridge/
+date: 07-13-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r include=FALSE}
+library(png)
+library(grid)
+```
+
+Now that we have our Data downloaded as a zip file, we'll need to dig into it to access what we want. 
+The file types we want are the .shp, .shx, and .dbf. We need each in order to have a complete shapefile. 
+
+First we need a few packages that allow us to work with zipfile
+
+```python
+import zipfile
+from io import BytesIO
+import io
+from google.colab import files
+import re, os
+from urllib.request import urlopen
+```
+
+```python
+### Put Zip in Memory
+f = zipfile.ZipFile(["file_name.zip", 'r')
+
+### Extract .shp, .shx and .dbf file from zip into doc folder
+listOfFileNames = f.namelist()
+# Iterate over the file names
+for fileName in listOfFileNames:
+    # Check filename endswith csv
+    if fileName.endswith('.shp') or fileName.endswith('.shx') or fileName.endswith('.dbf'):
+        # Extract a single file from zip
+         f.extract(fileName)
+```
+
+This code has taken our zip folder, extracted our 3 winners and placed them into a doc folder.
+Now we can work towards visualizing a field. We will be accomplishing this using the geopandas package. 
+There are plenty of other visualization packages out there that may make the mapp look nicer, but our purpose is to make sure that the data actually works and can create an accurate map. 
+
+First, we're goint to import geopandas, declare a link to our files, read the file, then view the dataframe
+
+```python
+### Print Table Version of .shp
+import geopandas as gpd
+import geoplot
+df_link = '/content/doc/BJ Christensen-Michaud-304-Potatoes.shp'
+df = gpd.read_file(df_link)
+df.head()
+```
+Try a basic plot
+
+```python
+### Basic Field Plot
+df.plot()
+```
+I don't love the look, but we're on the rigth track. Let's try to add some color.
+
+```python
+import contextily as ctx
+df = df.set_crs(epsg=4326)
+df = df.to_crs(epsg=4326)
+```
+
+```python
+sections = df.dissolve(by='SECTIONID', aggfunc='sum')
+
+sections.plot(column = 'NetYld', scheme='quantiles', cmap='viridis');
+```
+```{r, echo=FALSE}
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/plot_less_ugly.png')
+grid.raster(img)
+```
+And there we have it! While the plot is anything beautiful, the real win comes from the fact that we were able to access real John Deere Field Operation data and display it in a way that could potentially help a farmer make revenue altering decisions. The possibilities for future analysis is as endless as the supply with our newfound API connection. 
+
