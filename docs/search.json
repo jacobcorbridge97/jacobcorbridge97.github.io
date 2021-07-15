@@ -6,7 +6,7 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-07-15T16:03:41-06:00"
+      "last_modified": "2021-07-15T16:21:24-06:00"
     },
     {
       "path": "index.html",
@@ -14,7 +14,7 @@
       "description": "Data Science Student\nBrigham Young University - Idaho\nStotz Equipment Data Analyst\nCell: (928) 529-7036\ne-mail: jacobcorbridge97@gmail.com\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-07-15T16:03:42-06:00"
+      "last_modified": "2021-07-15T16:21:25-06:00"
     }
   ],
   "collections": ["posts/posts.json"]

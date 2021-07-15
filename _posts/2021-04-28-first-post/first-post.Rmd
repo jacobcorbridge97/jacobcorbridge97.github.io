@@ -23,7 +23,7 @@ library(grid)
 
 
 ```{r, echo=FALSE}
-img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/field1.png')
+img <- readPNG('C:/Users/Jacob Corbridge/Documents/Senior Project/jacobcorbridge97.github.io/Project_Photos/field3.png')
 grid.raster(img)
 ```
 
